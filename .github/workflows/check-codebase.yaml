@@ -1,0 +1,34 @@
+name: check-codebase
+
+on: [push]
+
+jobs:
+  test: 
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-go@v5
+      with:
+        cache: false
+
+    - uses: actions/cache/restore@v4
+      id: go-cache
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: go-${{ hashFiles('go.sum') }}
+        restore-keys: |
+          go-
+
+    - run: go test ./...
+
+    - uses: actions/cache/save@v4
+      if: github.ref_name == 'main'
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ steps.go-cache.outputs.cache-primary-key }}
