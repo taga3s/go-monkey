@@ -20,13 +20,11 @@ jobs:
           ~/.cache/go-build
           ~/go/pkg/mod
         key: go-${{ hashFiles('go.sum') }}
-        restore-keys: |
-          go-
 
     - run: go test ./...
 
     - uses: actions/cache/save@v4
-      if: github.ref_name == 'main'
+      if: github.ref_name == 'main' && steps.go-cache.outputs.cache-hit != 'true'
       with:
         path: |
           ~/.cache/go-build
