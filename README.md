@@ -2,5 +2,6 @@
 
 ## TODO
 - [x] lexer
-- [ ] parser
+- [x] parser
 - [ ] evaluator
+- [ ] expansion of interpreter
