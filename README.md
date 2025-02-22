@@ -4,4 +4,5 @@
 - [x] lexer
 - [x] parser
 - [x] evaluator
-- [ ] expansion of interpreter
+- [x] expansion of interpreter
+- [ ] appendix
